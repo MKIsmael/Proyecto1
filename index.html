@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personajes de God of War</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
+
+    body {
+      font-family: 'Cinzel', serif;
+      background: linear-gradient(135deg, #0d0d0d, #2b2b2b);
+      color: #f5f5f5;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      color: #c00;
+      margin-top: 20px;
+      font-size: 2.5em;
+      letter-spacing: 1px;
+      text-shadow: 0 0 10px #900;
+    }
+
+    #contenedor {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      padding: 30px;
+    }
+
+    .card {
+      background: #1a1a1a;
+      border: 2px solid #c00;
+      border-radius: 14px;
+      width: 270px;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .nombre {
+      font-size: 1.4em;
+      color: #ff3333;
+      margin-top: 10px;
+    }
+
+    input {
+      margin: 15px;
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: 1px solid #c00;
+      outline: none;
+      width: 240px;
+      font-family: 'Cinzel', serif;
+      font-size: 1em;
+      background: #222;
+      color: #fff;
+      text-align: center;
+      transition: box-shadow 0.3s;
+    }
+
+    input:focus {
+      box-shadow: 0 0 10px #c00;
+    }
+
+    footer {
+      color: #888;
+      font-size: 0.9em;
+      padding: 10px;
+      border-top: 1px solid #333;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Personajes de God of War</h1>
+  <input type="text" id="buscar" placeholder="Buscar por nombre...">
+  <div id="contenedor"></div>
+
+  <footer>⚔️ API web de personajes — Creado por fans de God of War ⚔️</footer>
+
+  <script>
+    const personajes = [
+      {
+        id: 1,
+        nombre: "Kratos",
+        origen: "Esparta",
+        rol: "Protagonista",
+        descripcion: "Semidiós espartano conocido como el Fantasma de Esparta. Busca redención tras desafiar a los dioses del Olimpo.",
+        primera_aparicion: "God of War (2005)",
+        arma_principal: "Espadas del Caos",
+        imagen: "https://upload.wikimedia.org/wikipedia/en/a/a7/Kratos_God_of_War.png"
+      },
+      {
+        id: 2,
+        nombre: "Atreus",
+        origen: "Mitología nórdica",
+        rol: "Hijo de Kratos",
+        descripcion: "Hijo de Kratos y Laufey, conocido también como Loki.",
+        primera_aparicion: "God of War (2018)",
+        arma_principal: "Arco de Garra",
+        imagen: "https://static.wikia.nocookie.net/godofwar/images/4/4d/Atreus_God_of_War_2018.png"
+      },
+      {
+        id: 3,
+        nombre: "Zeus",
+        origen: "Olimpo",
+        rol: "Antagonista",
+        descripcion: "Dios del trueno y rey del Olimpo. Padre de Kratos.",
+        primera_aparicion: "God of War II (2007)",
+        arma_principal: "Rayo de Zeus",
+        imagen: "https://static.wikia.nocookie.net/godofwar/images/0/03/Zeus_God_of_War_III.png"
+      },
+      {
+        id: 4,
+        nombre: "Freya",
+        origen: "Mitología nórdica",
+        rol: "Aliada / Antagonista",
+        descripcion: "Diosa de la magia y madre de Baldur. Su destino se cruza con el de Kratos y Atreus.",
+        primera_aparicion: "God of War (2018)",
+        arma_principal: "Magia Vanir",
+        imagen: "https://static.wikia.nocookie.net/godofwar/images/b/b9/Freya_God_of_War_2018.png"
+      },
+      {
+        id: 5,
+        nombre: "Baldur",
+        origen: "Mitología nórdica",
+        rol: "Antagonista",
+        descripcion: "Hijo de Freya y hermano de Thor. Inmortal gracias a un hechizo, pero incapaz de sentir placer o dolor.",
+        primera_aparicion: "God of War (2018)",
+        arma_principal: "Fuerza divina",
+        imagen: "https://static.wikia.nocookie.net/godofwar/images/1/1a/Baldur_God_of_War_2018.png"
+      }
+    ];
+
+    const contenedor = document.getElementById("contenedor");
+    const input = document.getElementById("buscar");
+
+    function mostrar(lista) {
+      contenedor.innerHTML = "";
+      lista.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${p.imagen}" alt="${p.nombre}">
+          <div class="nombre">${p.nombre}</div>
+          <p><b>Origen:</b> ${p.origen}</p>
+          <p><b>Rol:</b> ${p.rol}</p>
+          <p>${p.descripcion}</p>
+        `;
+        contenedor.appendChild(card);
+      });
+    }
+
+    // Mostrar todos al inicio
+    mostrar(personajes);
+
+    // Buscar por nombre
+    input.addEventListener("input", () => {
+      const filtro = input.value.toLowerCase();
+      const filtrados = personajes.filter(p => p.nombre.toLowerCase().includes(filtro));
+      mostrar(filtrados);
+    });
+  </script>
+</body>
+</html>
+
+
