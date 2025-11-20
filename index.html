@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Personajes de God of War</title>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
 
@@ -14,6 +15,7 @@
       text-align: center;
       margin: 0;
       padding: 0;
+      overflow-x: hidden;
     }
 
     h1 {
@@ -38,6 +40,7 @@
       border-radius: 14px;
       width: 270px;
       padding: 15px;
+      cursor: pointer;
       box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
       transition: transform 0.3s, box-shadow 0.3s;
     }
@@ -84,12 +87,88 @@
       border-top: 1px solid #333;
       margin-top: 20px;
     }
+
+    /* ---------------- MODAL ---------------- */
+
+    #modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      background: #1a1a1a;
+      border: 3px solid #c00;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 600px;
+      padding: 20px;
+      text-align: left;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+      animation: abrir 0.3s ease;
+    }
+
+    @keyframes abrir {
+      from { transform: scale(0.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-content img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .cerrar {
+      float: right;
+      font-size: 25px;
+      cursor: pointer;
+      color: #ff5555;
+    }
+
+    .cerrar:hover {
+      color: #ff0000;
+    }
+
+    .titulo-modal {
+      font-size: 2em;
+      color: #c00;
+      margin-bottom: 5px;
+    }
+
+    .dato {
+      font-size: 1.2em;
+      margin: 5px 0;
+    }
+    
   </style>
 </head>
 <body>
+
   <h1>Personajes de God of War</h1>
   <input type="text" id="buscar" placeholder="Buscar por nombre...">
   <div id="contenedor"></div>
+
+  <!-- MODAL -->
+  <div id="modal">
+    <div class="modal-content">
+      <span class="cerrar">&times;</span>
+      <div id="modal-body"></div>
+    </div>
+  </div>
 
   <footer>⚔️ API web de personajes — Creado por fans de God of War ⚔️</footer>
 
@@ -101,9 +180,10 @@
         origen: "Esparta",
         rol: "Protagonista",
         descripcion: "Semidiós espartano conocido como el Fantasma de Esparta. Busca redención tras desafiar a los dioses del Olimpo.",
+        historia: "Kratos fue un guerrero espartano que vendió su alma a Ares. Tras romper sus cadenas, enfrentó a los dioses griegos y luego comenzó una nueva vida en Midgard.",
         primera_aparicion: "God of War (2005)",
         arma_principal: "Espadas del Caos",
-        imagen: "https://upload.wikimedia.org/wikipedia/en/2/2f/Kratos_PS4.png"
+        imagen: "https://upload.wikimedia.org/wikipedia/en/a/a7/Kratos_God_of_War.png"
       },
       {
         id: 2,
@@ -111,9 +191,10 @@
         origen: "Mitología nórdica",
         rol: "Hijo de Kratos",
         descripcion: "Hijo de Kratos y Laufey, conocido también como Loki.",
+        historia: "Atreus descubre su verdadera identidad durante su viaje con Kratos. Su curiosidad y su conexión con los gigantes lo guían hacia su destino.",
         primera_aparicion: "God of War (2018)",
         arma_principal: "Arco de Garra",
-        imagen: "https://ngpmedia.com/wp-content/uploads/2022/11/atreus.png"
+        imagen: "https://static.wikia.nocookie.net/godofwar/images/4/4d/Atreus_God_of_War_2018.png"
       },
       {
         id: 3,
@@ -121,34 +202,18 @@
         origen: "Olimpo",
         rol: "Antagonista",
         descripcion: "Dios del trueno y rey del Olimpo. Padre de Kratos.",
+        historia: "Zeus teme el ciclo patricida que destruyó a los Titanes, por lo que traiciona a Kratos. Su conflicto define la saga griega.",
         primera_aparicion: "God of War II (2007)",
         arma_principal: "Rayo de Zeus",
-        imagen: "https://e7.pngegg.com/pngimages/216/824/png-clipart-zeus-grepolis-greek-mythology-tartarus-cronus-others-fictional-character-twelve-olympians-thumbnail.png"
-      },
-      {
-        id: 4,
-        nombre: "Freya",
-        origen: "Mitología nórdica",
-        rol: "Aliada / Antagonista",
-        descripcion: "Diosa de la magia y madre de Baldur. Su destino se cruza con el de Kratos y Atreus.",
-        primera_aparicion: "God of War (2018)",
-        arma_principal: "Magia Vanir",
-        imagen: "https://static.wikia.nocookie.net/villains/images/0/06/Freya_Render_God_Of_War_2018.png/revision/latest/scale-to-width-down/250?cb=20230530010704"
-      },
-      {
-        id: 5,
-        nombre: "Baldur",
-        origen: "Mitología nórdica",
-        rol: "Antagonista",
-        descripcion: "Hijo de Freya y hermano de Thor. Inmortal gracias a un hechizo, pero incapaz de sentir placer o dolor.",
-        primera_aparicion: "God of War (2018)",
-        arma_principal: "Fuerza divina",
-        imagen: "https://static.wikia.nocookie.net/deathbattlefanon/images/e/ea/BaldurGOW.png/revision/latest/scale-to-width-down/300?cb=20190215232901"
+        imagen: "https://static.wikia.nocookie.net/godofwar/images/0/03/Zeus_God_of_War_III.png"
       }
     ];
 
     const contenedor = document.getElementById("contenedor");
     const input = document.getElementById("buscar");
+    const modal = document.getElementById("modal");
+    const cerrarBtn = document.querySelector(".cerrar");
+    const modalBody = document.getElementById("modal-body");
 
     function mostrar(lista) {
       contenedor.innerHTML = "";
@@ -160,11 +225,29 @@
           <div class="nombre">${p.nombre}</div>
           <p><b>Origen:</b> ${p.origen}</p>
           <p><b>Rol:</b> ${p.rol}</p>
-          <p>${p.descripcion}</p>
         `;
+        card.addEventListener("click", () => abrirModal(p));
         contenedor.appendChild(card);
       });
     }
+
+    function abrirModal(p) {
+      modalBody.innerHTML = `
+        <img src="${p.imagen}">
+        <div class="titulo-modal">${p.nombre}</div>
+        <div class="dato"><b>Origen:</b> ${p.origen}</div>
+        <div class="dato"><b>Rol:</b> ${p.rol}</div>
+        <div class="dato"><b>Aparición:</b> ${p.primera_aparicion}</div>
+        <div class="dato"><b>Arma principal:</b> ${p.arma_principal}</div>
+        <p style="margin-top:10px;"><b>Historia:</b> ${p.historia}</p>
+      `;
+      modal.style.display = "flex";
+    }
+
+    cerrarBtn.addEventListener("click", () => modal.style.display = "none");
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) modal.style.display = "none";
+    });
 
     // Mostrar todos al inicio
     mostrar(personajes);
@@ -176,7 +259,10 @@
       mostrar(filtrados);
     });
   </script>
+
 </body>
+</html>
+
 </html>
 
 
